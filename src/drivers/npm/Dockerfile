@@ -19,12 +19,11 @@ WORKDIR "$WAPPALYZER_ROOT"
 
 COPY technologies ./technologies
 COPY \
-  cli.js \
+  drivers\npm\cli.js \
   categories.json \
-  driver.js \
+  drivers\npm\driver.js \
   package.json \
-  wappalyzer.js \
-  yarn.lock ./
+  wappalyzer.js ./
 
 RUN yarn install
 

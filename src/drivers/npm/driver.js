@@ -4,7 +4,7 @@ const path = require('path')
 const http = require('http')
 const https = require('https')
 const puppeteer = require('puppeteer')
-const Wappalyzer = require('./wappalyzer')
+const Wappalyzer = require('../../wappalyzer')
 
 const { setTechnologies, setCategories, analyze, analyzeManyToMany, resolve } =
   Wappalyzer
@@ -16,7 +16,7 @@ const chromiumArgs = CHROMIUM_ARGS
   ? CHROMIUM_ARGS.split(' ')
   : [
       '--headless',
-      '--single-process',
+      //'--single-process',
       '--no-sandbox',
       '--no-zygote',
       '--disable-gpu',
@@ -29,7 +29,7 @@ const chromiumArgs = CHROMIUM_ARGS
 const extensions = /^([^.]+$|\.(asp|aspx|cgi|htm|html|jsp|php)$)/
 
 const categories = JSON.parse(
-  fs.readFileSync(path.resolve(`${__dirname}/categories.json`))
+  fs.readFileSync(path.resolve(`${path.dirname(path.dirname(__dirname))}/categories.json`))
 )
 
 let technologies = {}
@@ -41,7 +41,7 @@ for (const index of Array(27).keys()) {
     ...technologies,
     ...JSON.parse(
       fs.readFileSync(
-        path.resolve(`${__dirname}/technologies/${character}.json`)
+        path.resolve(`${path.dirname(path.dirname(__dirname))}/technologies/${character}.json`)
       )
     ),
   }
